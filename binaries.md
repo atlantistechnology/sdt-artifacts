@@ -18,7 +18,8 @@ For example, on a Linux x86-64 system, you might do this:
 See the main documentation for discussion of the additional capabilities
 provided by the supporting executables.  Note that this archive simply
 maintains the latest(ish) version of each executable.  To build a specific
-older version for your platform, clone the appropriate release branch of 
+older version for your platform, clone the appropriate release branch of that 
+release, and compile it using `go install ./...`.
 
 ## aix / ppc64
   - [gotree](https://github.com/atlantistechnology/sdt-artifacts/blob/main/aix/ppc64/gotree)
