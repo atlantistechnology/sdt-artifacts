@@ -89,7 +89,7 @@ component of `sdt` looks like the following.  You can easily include those
 steps related to installing tree-sitter and tree-sitter grammars (and
 building the supporting `treesit` utility) within your workflows.
 
-```
+```yaml
 name: SDT unit tests for tree-sitter diffs
 
 on: [pull_request]

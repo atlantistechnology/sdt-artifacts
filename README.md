@@ -282,74 +282,17 @@ straightforward.  If no more specialized language parser is defined in SDT
 specific code, a final effort is made to use the bundled tool `treesit` to
 produce a parse tree for a modified file.
 
-The tool `treesit` wraps a call to `tree-sitter parse`, and merely massages
-the output slightly to produce a format compatible with that produced by
-`gotree`.  This allows SDT to produce semantic analysis for all languages
-having installed tree-sitter grammars.  Available grammars include:
-
-	* Agda
-	* Bash
-	* C
-	* C#
-	* C++
-	* Common Lisp
-	* CSS
-	* CUDA
-	* D
-	* Dockerfile
-	* DOT
-	* Elixir
-	* Elm
-	* Emacs Lisp
-	* Eno
-	* ERB / EJS
-	* Erlang
-	* Fennel
-	* GLSL (OpenGL Shading Language)
-	* Go
-	* Go mod
-	* Hack
-	* Haskell
-	* HCL
-	* HTML
-	* Java
-	* JavaScript
-	* JSON
-	* Julia
-	* Kotlin
-	* Lua
-	* Make
-	* Markdown
-	* Nix
-	* Objective-C
-	* OCaml
-	* Org
-	* Perl
-	* PHP
-	* Protocol Buffers
-	* Python
-	* R
-	* Racket
-	* Ruby
-	* Rust
-	* Scala
-	* S-expressions
-	* Sourcepawn
-	* SPARQL
-	* SQL
-	* Svelte
-	* Swift
-	* SystemRDL
-	* TOML
-	* Turtle
-	* Twig
-	* TypeScript
-	* Verilog
-	* VHDL
-	* Vue
-	* WASM
-	* WGSL WebGPU Shading Language
-	* YAML
+The tool `treesit` wraps a call to `tree-sitter parse`, and merely massages the
+output slightly to produce a format compatible with that produced by `gotree`.
+This allows SDT to produce semantic analysis for all languages having installed
+tree-sitter grammars.  Available grammars include: Agda; Bash; C; C#; C++;
+Common Lisp; CSS; CUDA; D; Dockerfile; DOT; Elixir; Elm; Emacs Lisp; Eno; ERB /
+EJS; Erlang; Fennel; GLSL (OpenGL Shading Language); Go; Go mod Hack; Haskell;
+HCL; HTML; Java; JavaScript; JSON; Julia; Kotlin; Lua; Make; Markdown Nix;
+Objective-C; OCaml Org; Perl; PHP; Protocol Buffers; Python; R; Racket; Ruby;
+Rust; Scala S-expressions; Sourcepawn; SPARQL; SQL; Svelte; Swift; SystemRDL;
+TOML; Turtle Twig; TypeScript; Verilog; VHDL; Vue; WASM; WGSL WebGPU Shading
+Language; YAML.
 
 ## Others
 

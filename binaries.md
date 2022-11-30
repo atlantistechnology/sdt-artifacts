@@ -1,9 +1,9 @@
-# Downloadable binaries for Semantic Diff Tool
-
 ---
 title: Executable binaries fo SDT and support utilities
 date: November 30, 2022
 ---
+
+# Downloadable binaries for Semantic Diff Tool
 
 For each of these tools, simply download each one to your PATH, as
 appropriate to your operating system and CPU architecture.
