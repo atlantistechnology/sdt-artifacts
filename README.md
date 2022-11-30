@@ -1,19 +1,28 @@
+---
+title: About Semantic Diff Tool
+date: November 30, 2022
+---
+
 # Semantic Diff Tool (sdt)
 
-The command-line tool `sdt` compares source files to identify which
-changes create semantic differences in the program operation, and
-specifically to exclude many changes which cannot be *functionally
-important* to the operation of a program or library.
+Welcome to [Atlantis Techology](https://www.atlantistech.com/)'s Semantic
+Diff Tool.  This tool is Free Libre Open Source Software (FLOSS) which we
+hope will prove useful to software developers (please contribute also).
+
+The command-line tool `sdt` compares source files to identify which changes
+create semantic differences in the program operation, and specifically to
+exclude many changes which cannot be *functionally important* to the
+operation of a program or library.
 
 Use of `sdt` will allow code reviewers or submitters to assure that
-modifications made to improve stylistic formatting of the code—whether
-made by hand or using code-formatting tools—does not modify the underlying
+modifications made to improve stylistic formatting of the code—whether made
+by hand or using code-formatting tools—does not modify the underlying
 *meaning* of the code.
 
-As designed, the tool is much more likely to produce false positives for
-the presence of semantic changes than false negatives.  That is to say,
-`sdt` might indicate that a certain segment of the diff between versions
-is *likely* to contain a semantic difference in code, but upon human
+As designed, the tool is much more likely to produce false positives for the
+presence of semantic changes than false negatives.  That is to say, `sdt`
+might indicate that a certain segment of the diff between versions is
+*likely* to contain a semantic difference in code, but upon human
 examination, a developer might decide that no actual behavior will change
 (or, of course, she might decide that the change in code behavior is a
 desired change).
@@ -21,14 +30,38 @@ desired change).
 It is unlikely that `sdt` will identify an overall file change, or any
 change to a particular segment of a diff as semantically irrelevant where
 that change actually does change behavior.  However, this tool provides NO
-WARRANTY, and it remains up to your human developers and your CI/CD
-process to make final decisions on whether to accept code changes.
+WARRANTY, and it remains up to your human developers and your CI/CD process
+to make final decisions on whether to accept code changes.
+
+A quick example of usage shows an overview of capabilities (the switches
+added simply minimize the output context and remove reliance on colorized
+output).  The comparison shown compares what is currently on disk to the
+HEAD of the working git branch (many other combinations are enabled with
+command flags).
+
+```
+% sdt semantic --dumbterm --minimal 2>/dev/null
+Changes to be committed:
+    modified:   .github/workflows/test-treesit.yaml
+| No available semantic analyzer for this format
+    new file:   pkg/types/types_test.go
+Changes not staged for commit:
+    modified:   samples/filter.rb
+| Segments with likely semantic changes
+| @@ -3,4 +3,4 @@ def mod5?(items)
+| -puts mod5? 1..100
+| +puts mod5? 1..50
+    modified:   samples/funcs.py
+| No semantic differences detected
+    modified:   samples/running-total.sql
+|        count(DISTINCT co.order_id) AS {{-num_}}order{{-s}}{{+_count}},
+```
 
 ## Installation
 
 If the Go language is installed on your system, you may install `sdt` by
-cloning this repository, and installing the tool using `go install ./...`.
-For example:
+cloning its source repository, and installing the tool using `go install
+./...`.  For example:
 
 ```bash
 % git clone https://github.com/atlantistechnology/sdt.git
@@ -36,10 +69,11 @@ For example:
 % go install ./...
 ```
 
-These commands will install both `sdt` itself and also the small support tools
-`jsonformat`, `gotree`, and `treesit` that may be used to evaluate changed 
-JSON, Golang, and tree-sitter grammar files, respectively.  Additional similar 
-tools are likely to be added to this repository as new languages are supported.
+These commands will install `sdt` itself, and also the small support tools
+`jsonformat`, `gotree`, and `treesit`.  These latter tools may be used to
+evaluate changed JSON, Golang, and languages with installed tree-sitter
+grammar files, respectively.  Additional similar tools are likely to be
+added as new languages are supported.
 
 However, you may also simply download pre-built binaries for all available
 Go cross-compilation targets directly to your system path.  For example,
@@ -61,10 +95,23 @@ much more powerful [`jq`](https://stedolan.github.io/jq/) in their
 parse tree, so a different tool is unlikely to be compatible with `sdt`.
 
 The separate step of setting the "executable bit" is probably not needed,
-but does no harm.  If you are installing to a PATH that only needs user 
+but does no harm.  If you are installing to a PATH that only needs user
 permission, the `sudo` is not necessary.
 
+Jump to a [list of all downloadable files](binaries.md) to locate those
+compiled for your operating system and CPU architecture.
+
 ## Integrations
+
+### Editor plugins
+
+* [Vim](plugins/vim.md)
+* [VS Code](plugins/vscode.md)
+* [Atom](plugins/atom.md)
+* [Notepad++](plugins/notepadplus.md)
+* [Emacs](plugins/emacs.md)
+* [Sublime Text](plugins/sublime.md)
+* [Nano](plugins/nano.md)
 
 ### Subcommand of git
 
@@ -72,10 +119,10 @@ You may wish to use `sdt` as a `git` subcommand.  To do so, you can create
 an alias under either locally within `<repo>/.git/config` or globally within
 `$HOME/.gitconfig`, depending on which better suits your workflow.
 
-A straightforward and useful alias can provide something akin to an
-enhanced `git diff`.  This alias will either compare current files to the
-`HEAD` of the working branch, compare current files to another branch, or
-compare to branches/revisions to each other.  For example:
+A straightforward and useful alias can provide something akin to an enhanced
+`git diff`.  This alias will either compare current files to the `HEAD` of
+the working branch, compare current files to another branch, or compare to
+branches/revisions to each other.  For example:
 
 ```
 % git sdt
@@ -113,149 +160,17 @@ The alias for this behavior is:
         sdt semantic $A $B; }; f"
 ```
 
-### Checking within GitHub Action
+# Checking for seman changes within a GitHub Action
 
-You may wish to have a semantic analysis of changes performed along with every
-PR.  This can be accomplished using a GitHub Action, or in an analogous way on
-other repository management services such as GitLab or BitBucket.  A GitHub
-Action could look like the below (and such is used in the repository for SDT
-itself; note you only need the middle steps of building the internal tools if 
-your project includes JSON or Go). The "Analyze semantic changes" step will 
-always be needed.  If you want to use tree-sitter grammars and/or custom 
-versions of SDT-supported programming languages, you will need to install those
-within the workflow.
+You may wish to have a semantic analysis of changes performed along with
+every PR.  This can be accomplished using a GitHub Action, or in an
+analogous way on other repository management services such as GitLab or
+BitBucket.  The workflow shown below adds the analysis performed by SDT as a
+comment to every submitted pull request.
 
-Since this is a GH Action for the `sdt` repo itself, we build the underlying
-tool(s) in the workflow. For an unrelated repository, you should simply follow
-the installation instructions, as you would for installation to a local 
-development workstation, and include those steps in the YAML file.
-
-```yaml
-name: Semantic Diff Tool analysis in PR comment
-
-on:
-  pull_request:
-
-jobs:
-  pr:
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.19
-
-      - name: Build jsonformat tool
-        run: |
-          go build -o "$GITHUB_WORKSPACE/jsonformat" cmd/jsonformat/main.go &&
-          echo "$GITHUB_WORKSPACE/" >> $GITHUB_PATH
-
-      - name: Build gotree tool
-        run: |
-          go build -o "$GITHUB_WORKSPACE/gotree" cmd/gotree/main.go &&
-          echo "$GITHUB_WORKSPACE/" >> $GITHUB_PATH
-
-      - name: Analyze semantic changes
-        id: pr
-        run: |
-          new=$(git log | grep 'Merge.*into.*' | head -1 | sed 's/ into .*$//;s/^ *Merge //')
-          old=$(git log | grep 'Merge.*into.*' | head -1 | sed 's/^.* into //')
-          status=$(go run cmd/sdt/main.go semantic -A "${old}:" -B "${new}:" -m -d)
-          echo "Comparing revision $old to $new" >> SDT.analysis
-          echo "<pre>" >> SDT.analysis
-          echo "$status" >> SDT.analysis
-          echo "</pre>" >> SDT.analysis
-          echo "$status" # Workflow sees the report also
-          
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Add a comment to the PR
-        uses: mshick/add-pr-comment@v2
-        with:
-          message-path: SDT.analysis
-```
-
-## Related tools
-
-### Difftastic
-
-[Difftastic](https://github.com/Wilfred/difftastic) (`difft`) serves a
-largely overlapping purpose to `sdt`.  Difftastic builds on the substantial
-and longstanding work in
-[tree-sitter](https://github.com/tree-sitter/tree-sitter), which is a parser
-generator tool for which many grammars and interfaces have been created.
-
-Semantic Diff Tool is much newer and less developed; but `sdt` also takes a
-much more heuristic approach.  That is, `difft` will answer the question
-"*exactly* what has changed between these two versions of a file at an AST
-level?"  In contrast, `sdt` aims to answer the somewhat narrower question
-"which segments of the diff are likely to be semantically important?"
-Specifically, `sdt` is meant to aid code reviewers in excluding merely
-stylistic changes and focus on (likely) functional changes.
-
-This difference is reflected in the different approaches to comparing files
-the two tools take.  Instead of relying on fixed and compiled-in versions of
-parsers as `difft` does, `sdt` dynamically calls external tools (which can
-be whichever specific version of those is used by a project).  
-
-As a consequence, using `difft` with a project that, e.g., utilizes Python
-3.8 is difficult to impossible.  At the least, it would require recompiling
-the Rust tool with dependencies on whichever older version of
-[tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) has
-specifically 3.8-level syntax.  In contrast, `sdt` can be easily and
-dynamically configured to utilize an appropriate Python executable, such as
-`/usr/local/bin/python3.8`.
-
-As an illustration, in the following screenshots, `git diff` shows three
-segments where surface changes were made to a small test file.  The first
-and third—but not the second—segment is semantically meaningful to what the
-program does.  Both `difft` and `sdt` correctly identify this fact; but
-`sdt` presents a display closely modeled on `git diff` itself while `difft`
-highlights *exactly* those characters that represent a change (using a
-somewhat idiosyncratic, but clear, format).  These examples are included as
-screenshots rather than as marked text to preserve the use of color
-highlighting by all three tool.
-
-```
-% git diff
-```
-
-<img src="assets/img/diff-python-git.png" alt="git diff" width="50%"/>
-
-```
-% GIT_EXTERNAL_DIFF='difft --display=inline' git diff
-```
-
-<img src="assets/img/difft-python-git.png" alt="difft as GIT_EXTERNAL_DIFF" width="50%"/>
-
-```
-% sdt semantic
-```
-
-<img src="assets/img/sdt-python-git.png" alt="sdt semantic" width="50%/">
-
-### AST Explorer
-
-[AST Explorer](https://github.com/fkling/astexplorer) is somewhat similar in
-concept to Difftastic.  It is written in JavaScript, and uses
-language-native parsers to support numerous programming languages.  It does
-not attempt to provide diff'ing, but adding that would be relatively
-straightforward.  That was, in fact, the initial but discarded approach
-taken by the creator of `sdt`.
-
-However, after some initial development, I realized that the quality of the
-third-party JS parsers that AST Explorer utilizes are often poor, and fail
-to recognize many commonplace constructs of the languages they respectively
-process.  AST Explorer itself exposes a very nice [web-based front
-end](https://astexplorer.net/), but beyond the sample files of many source
-languages it provides, the tool often fails to parse valid source code.
+A discussion of the [workflows used in the SDT repository](gh_action.md)
+contains illustrations of how to perform an integration with your
+collaborative merging and code reviews.
 
 # Supported languages
 
@@ -280,8 +195,8 @@ used to create an AST of the file being analyzed.  Similarly, for Python
 files, `python -m ast -a` is used for the same purpose.  Other tools produce
 canonical representations rather than ASTs, depending on what best serves
 the needs of a particular language (and depending on what tools are
-available and their quality).  While overriding the configuration between
-different version of a programming language or tool will *probably* not
+available, and their quality).  While overriding the configuration between
+different versions of a programming language or tool will *probably* not
 break the code that performs the semantic comparison, not all languages have
 been tested in all versions (especially for versions that will be created in
 the future and do not yet exist).
@@ -348,11 +263,12 @@ assumptions made in evaluating this parse tree.
 
 The widely used parser generator `Tree-sitter` has had a great many grammars
 designed for it. This tool is used by the Atom editor and by GitHub in its
-code highlighting and analysis facilities. As noted relative to Difftastic, 
-these grammars are all at "some version of the language" rather than allowing
-an arbitrary version to be configued; however, by utilizing this tool, SDT
-gets support for 63 languages (at time of this writing; some grammars more 
-complete than others).
+code highlighting and analysis facilities. As noted relative to Difftastic,
+these grammars are all at "some version of the language" rather than
+allowing an arbitrary version to be configued; however, by utilizing this
+tool, SDT gets support for 63 languages (at time of this writing; some
+grammars are more complete than others, and some are independently supported
+by SDT "out of the box").
 
 Installing the command-line tool `tree-sitter` requires building a project
 using Rust's `cargo` or Node.js' `npm`, and generating each grammar 
