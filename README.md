@@ -160,7 +160,7 @@ The alias for this behavior is:
         sdt semantic $A $B; }; f"
 ```
 
-# Checking for seman changes within a GitHub Action
+# Checking for semantic changes within a GitHub Action
 
 You may wish to have a semantic analysis of changes performed along with
 every PR.  This can be accomplished using a GitHub Action, or in an
