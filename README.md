@@ -57,6 +57,9 @@ Changes not staged for commit:
 |        count(DISTINCT co.order_id) AS {{-num_}}order{{-s}}{{+_count}},
 ```
 
+Integration with version control workflows, programming editors, and git
+subcommands is straightforward, and largely discussed in these docs.
+
 ## Installation
 
 If the Go language is installed on your system, you may install `sdt` by
