@@ -1,13 +1,14 @@
 ---
 title: About Semantic Diff Tool
-date: November 30, 2022
+date: December 2, 2022
 ---
 
 # Semantic Diff Tool (sdt)
 
-Welcome to [Atlantis Techology](https://www.atlantistech.com/)'s Semantic
-Diff Tool.  This tool is Free Libre Open Source Software (FLOSS) which we
-hope will prove useful to software developers (please contribute also).
+Welcome to [Atlantis Techology](https://www.atlantistech.com/)'s [Semantic
+Diff Tool](https://github.com/atlantistechnology/sdt).  This tool is Free
+Libre Open Source Software (FLOSS) which we hope will prove useful to
+software developers (please contribute also).
 
 The command-line tool `sdt` compares source files to identify which changes
 create semantic differences in the program operation, and specifically to
