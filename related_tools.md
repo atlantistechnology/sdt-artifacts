@@ -3,13 +3,13 @@ title: Tools Related to Semantic Diff Tool
 date: November 30, 2022
 ---
 
-## Related tools
+# Related tools
 
 Semantic Diff Tool has [some similarities](related_tools.md) with Difftastic
 and AST Explorer.  Take a look at the discussion at that link.  If you know
 of other useful comparisons, please let us know (or push a PR).
 
-### Difftastic
+## Difftastic
 
 [Difftastic](https://github.com/Wilfred/difftastic) (`difft`) serves a
 largely overlapping purpose to `sdt`.  Difftastic builds on the substantial
@@ -66,7 +66,51 @@ highlighting by all three tool.
 
 <img src="assets/img/sdt-python-git.png" alt="sdt semantic" width="50%/">
 
-### AST Explorer
+## diffsitter
+
+The [command-line utility
+`diffsitter`](https://github.com/afnanenayet/diffsitter) is very similar in
+design to Difftastic, and not so far from the tree-sitter mode of SDT.
+Diffsitter is built in Rust, and links (usually statically links) to
+tree-sitter grammars for those numerous languages.
+
+Diffsitter is not inherently git-aware, as SDT is, but it (currently) has
+nicer packaging than SDT, via `cargo`, `brew`, and `apk`.  I also want to
+borrow its provision of shell completion, which is a nice integration.  My
+quick attempt at using an external variable for `git diff` fails for
+`diffsitter` for reasons that are not immediately obvious to me; but I
+suspect this could be remedied with some sort of thin wrapper, i.e.:
+
+```
+% GIT_EXTERNAL_DIFF='diffsitter' git diff
+error: Found argument 'b9e8fc3459023476309388d0adecf99b835c0f94' which
+wasn't expected, or isn't valid in this context
+
+Usage: diffsitter [OPTIONS] [OLD] [NEW] [COMMAND]
+
+For more information try '--help'
+fatal: external diff died, stopping at samples/funcs.py
+```
+
+We can again provide screenshots to show the different colorized visual
+displays of `diffsitter` versus `sdt`.  These examples compare on-disk
+files, but are the same comparison as used with Difftastic (i.e. two Python
+files containing both functional and non-functional changes across different
+functions:
+
+```
+% sdt semantic -A funcs0.py -B funcs2.py --minimal
+```
+
+<img src="assets/img/sdt-python-local.png" alt="sdt python local" width="50%"/>
+
+```
+% diffsitter funcs0.py funcs2.py
+```
+
+<img src="assets/img/diffsitter-python.png" alt="diffsitter python" width="50%"/>
+
+## AST Explorer
 
 [AST Explorer](https://github.com/fkling/astexplorer) is somewhat similar in
 concept to Difftastic.  It is written in JavaScript, and uses
