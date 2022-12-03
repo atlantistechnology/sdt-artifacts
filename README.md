@@ -62,10 +62,11 @@ Changes not staged for commit:
 Integration with version control workflows, programming editors, and git
 subcommands is straightforward, and largely discussed in these docs.
 
-Feel free to check out a brief discussion of [related
-tools](related_tools.md).  We believe that SDT addresses a particular need
-for code reviewers and CI/CD processes that is modestly novel, but it's part
-of a space occupied by many other wonderful developer tools.
+Feel free to check out a brief discussion of 
+[related tools](related_tools.md).  We believe that SDT addresses a 
+particular need for code reviewers and CI/CD processes that is modestly 
+novel, but it's part of a space occupied by many other wonderful developer 
+tools.
 
 ## Installation
 
