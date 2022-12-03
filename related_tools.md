@@ -71,8 +71,8 @@ highlighting by all three tool.
 The [command-line utility
 `diffsitter`](https://github.com/afnanenayet/diffsitter) is very similar in
 design to Difftastic, and not so far from the tree-sitter mode of SDT.
-Diffsitter is built in Rust, and links (usually statically links) to
-tree-sitter grammars for those numerous languages.
+Diffsitter is built in Rust, and links (usually statically) to tree-sitter
+grammars for those numerous languages.
 
 Diffsitter is not inherently git-aware, as SDT is, but it (currently) has
 nicer packaging than SDT, via `cargo`, `brew`, and `apk`.  I also want to
