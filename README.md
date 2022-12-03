@@ -55,7 +55,8 @@ Changes not staged for commit:
     modified:   samples/funcs.py
 | No semantic differences detected
     modified:   samples/running-total.sql
-|        count(DISTINCT co.order_id) AS {{-num_}}order{{-s}}{{+_count}},
+|        count(DISTINCT co.order_id) 
+|          AS {{-num_}}order{{-s}}{{+_count}},
 ```
 
 Integration with version control workflows, programming editors, and git
@@ -69,8 +70,8 @@ of a space occupied by many other wonderful developer tools.
 ## Installation
 
 If the Go language is installed on your system, you may install `sdt` by
-cloning its source repository, and installing the tool using `go install
-./...`.  For example:
+cloning its source repository, and installing the tool using `go install`.
+For example:
 
 ```bash
 % git clone https://github.com/atlantistechnology/sdt.git
@@ -125,7 +126,7 @@ compiled for your operating system and CPU architecture.
 ### Subcommand of git
 
 You may wish to use `sdt` as a `git` subcommand.  To do so, you can create
-an alias under either locally within `<repo>/.git/config` or globally within
+an alias either locally within `<repo>/.git/config` or globally within
 `$HOME/.gitconfig`, depending on which better suits your workflow.
 
 A straightforward and useful alias can provide something akin to an enhanced
