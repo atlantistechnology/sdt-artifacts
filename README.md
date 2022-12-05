@@ -40,7 +40,7 @@ output).  The comparison shown compares what is currently on disk to the
 HEAD of the working git branch (many other combinations are enabled with
 command flags).
 
-```
+<pre>
 % sdt semantic --dumbterm --minimal 2>/dev/null
 Changes to be committed:
     modified:   .github/workflows/test-treesit.yaml
@@ -56,7 +56,7 @@ Changes not staged for commit:
 | No semantic differences detected
     modified:   samples/running-total.sql
 |        count(DISTINCT co.order_id) AS &lcub;{-num_}}order&lcub;{-s}}&lcub;{+_count}},
-```
+</pre>
 
 Integration with version control workflows, programming editors, and git
 subcommands is straightforward, and largely discussed in these docs.
