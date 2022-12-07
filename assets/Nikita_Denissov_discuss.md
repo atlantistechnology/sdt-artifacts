@@ -1,10 +1,12 @@
 ---
 author: Nikita Denissov
 date: November 7, 2022
-thread: [Guide to syntax changes by Python version?](https://discuss.python.org/t/guide-to-syntax-changes-by-python-version/20715/22)
+title: Guide to syntax changes by Python version
 ---
 
- **3.11**
+[Original post](https://discuss.python.org/t/guide-to-syntax-changes-by-python-version/20715/22)
+
+**3.11**
 * [PEP 654: Exception Groups and except*](https://docs.python.org/3.12/whatsnew/3.11.html#whatsnew311-pep654)
 * [PEP 646: Variadic generics](https://peps.python.org/646)
 
