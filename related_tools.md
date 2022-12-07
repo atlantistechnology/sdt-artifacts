@@ -5,9 +5,9 @@ date: November 30, 2022
 
 # Related tools
 
-Semantic Diff Tool has [some similarities](related_tools.md) with Difftastic
-and AST Explorer.  Take a look at the discussion at that link.  If you know
-of other useful comparisons, please let us know (or push a PR).
+Semantic Diff Tool has [some similarities](related_tools.md) with Difftastic, 
+diffsitter, and AST Explorer.  Take a look at the discussion at that link.  
+If you know of other useful comparisons, please let us know (or push a PR).
 
 ## Difftastic
 

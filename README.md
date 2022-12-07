@@ -55,7 +55,7 @@ Changes not staged for commit:
     modified:   samples/funcs.py
 | No semantic differences detected
     modified:   samples/running-total.sql
-|        count(DISTINCT co.order_id) AS {{-num_}}order{{-s}}{{+_count}},
+|        count(DISTINCT co.order_id) AS &lcub;{-num_}}order&lcub;{-s}}&lcub;{+_count}},
 </pre>
 
 Integration with version control workflows, programming editors, and git
