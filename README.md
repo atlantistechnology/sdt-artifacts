@@ -221,7 +221,16 @@ Only a `ruby` interpreter is required (by default)
 
 Initial support created.  Supports both `semantic` and `parsetree` subcommands.
 
-Only a `python` interpreter is required (by default)
+Only a `python` interpreter is required (by default).
+
+Note that for versions of Python before and including 3.8, the more
+complicated invocation shown in `samples/.sdt.toml` is needed rather than
+the simpler external call used by default in the SDT source code.
+
+A summary of [all the syntax changes](assets/Nikita_Denissov_discuss.md) 
+in Python (and hence parse tree changes) was written by Nikita Denissov.
+This goes all the way back to Python 2.0, with links to corresponding PEPs
+and BPOs.
 
 ## SQL
 
